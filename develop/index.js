@@ -3,7 +3,6 @@ const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const inquirer = require('inquirer');
 const fs = require('fs');
-const Intern = require('./lib/Intern');
 let team = []
 // TODO: CODE GOES HERE
 const firstQuest = {
@@ -66,18 +65,18 @@ const internQuest = [{
   , {
   type: 'input',
   message: 'What is the interns ID?',
-  name: 'ingId',
+  name: 'inId',
 }
   , {
   type: 'input',
   message: 'What is the interns school?',
-  name: 'inSchol',
+  name: 'inSchool',
 }]
 
 
 const managerQuestions = function (answers) {
   inquirer.prompt(managerQuest).then((answers) => {
-    const manager = new Manager(answers.mngrName, answers.mngrId, answers.mngrEmail, answers.mngrOffice)
+    var manager = new Manager(answers.mngrName, answers.mngrId, answers.mngrEmail, answers.mngrOffice)
     console.log(manager)
     team.push(manager)
     whatRole()
@@ -85,8 +84,8 @@ const managerQuestions = function (answers) {
 }
 const engineerQuestions = function (answers) {
   inquirer.prompt(engineerQuest)
-    .then(function () {
-      const engineer = new Engineer(answers.engName, answers.engId, answers.engEmail, answers.engGit)
+    .then(function (answers) {
+      var engineer = new Engineer(answers.engName, answers.engId, answers.engEmail, answers.engGit)
       console.log(engineer)
       team.push(engineer)
       whatRole()
@@ -94,16 +93,18 @@ const engineerQuestions = function (answers) {
 }
 const internQuestions = function (answers) {
   inquirer.prompt(internQuest)
-    .then(function () {
-      const Intern = new Intern(answers.inName, answers.inId, answers.inEmail, answers.inGit)
-      console.log(Intern)
-      team.push(Intern)
+    .then(function (answers) {
+      var newIntern = new Intern (answers.inName, answers.inId, answers.inEmail, answers.inSchool)
+      console.log(newIntern)
+      team.push(newIntern)
       whatRole()
     })
 }
 const returnHome = function () {
-  fs.writeFileSync(``)
+  // fs.writeFileSync(`./dist/index.html`)
+  console.log(team)
 }
+
 const whatRole = function () {
   inquirer.prompt(firstQuest).then((answers) => {
     if (answers.whatRole === 'Manager') {
@@ -114,9 +115,10 @@ const whatRole = function () {
     }
     if (answers.whatRole === 'Intern') {
       internQuestions()
-    } else {
-      returnHome()
-    }
+    } 
+  if(answers.whatRole == 'No more Roles'){
+    returnHome()
+  }
   })
 }
 whatRole()
