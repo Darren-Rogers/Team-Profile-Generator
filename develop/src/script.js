@@ -25,9 +25,10 @@ function showInfo(employee) {
   var template = `
   <div class="align-items-center card mx-3" style='max-width: 20rem'>
     <div class="card-header">${employee.name}</div>
+    <div class="card-header">${employee.role}</div>
     <div class="card-body">
       <h3 class="card-title">${employee.id}</h3>
-      <p class="card-text">${employee.email}</p>
+      <link class="card-text">${employee.email}</link>
       ${lastOne(employee)}
     </div>
   </div>`
