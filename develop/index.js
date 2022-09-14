@@ -3,6 +3,7 @@ const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const inquirer = require('inquirer');
 const fs = require('fs');
+const generateHtml = require('./src/script');
 let team = []
 // TODO: CODE GOES HERE
 const firstQuest = {
@@ -49,7 +50,7 @@ const engineerQuest = [{
 }
   , {
   type: 'input',
-  message: 'What is the eningeers ID?',
+  message: 'What is the eningeers Github?',
   name: 'engGit',
 }
 ]
@@ -100,10 +101,7 @@ const internQuestions = function (answers) {
       whatRole()
     })
 }
-const returnHome = function () {
-  // fs.writeFileSync(`./dist/index.html`)
-  console.log(team)
-}
+
 
 const whatRole = function () {
   inquirer.prompt(firstQuest).then((answers) => {
@@ -117,7 +115,8 @@ const whatRole = function () {
       internQuestions()
     } 
   if(answers.whatRole == 'No more Roles'){
-    returnHome()
+    fs.writeFile('dist/index.html', generateHtml(team), function(){
+    })
   }
   })
 }
